@@ -13,22 +13,22 @@ const songs = [
     {
         title: 'Break Stuff',
         artist: 'Limp Bizkit',
-        src: '.music/Limp Bizkit - BreakStuf.mp4',
+        src: './music/Limp Bizkit - Break Stuff.mp3',
     },
     {
         title: 'Given Up',
         artist: 'Linkin park',
-        src: '.music/Linkin park - Given Up.mp4',
+        src: './music/Linkin park - Given Up.mp3',
     },
     {
         title: 'Enter Sandman (Remastered)',
         artist: 'Metallica',
-        src: '.music/Metallica - Enter Sandman (Remastered).mp4',
+        src: './music/Metallica - Enter Sandman (Remastered).mp3',
     },
     {
         title: "Fuel (HD)",
         artist: "Metallica",
-        src: ".music/Metallica - Fuel (HD).mp4",
+        src: "./music/Metallica - Fuel (HD).mp3",
     },
 ]
 
@@ -56,17 +56,17 @@ btnPlayPause.addEventListener("click", () => {
 
 const playSong = () => {
     songPlay.play()
-    btnPlayPause.innerHTML = '<i class="bi bi-play-fill"></i>';
+    btnPlayPause.innerHTML = '<i class="bi bi-pause-fill"></i>';
 }
 
 const pauseSong = () => {
     songPlay.pause()
-    btnPlayPause.innerHTML = '<i class="bi bi-pause-fill"></i>';
+    btnPlayPause.innerHTML = '<i class="bi bi-play-fill"></i>';
 }  
 
 //ME PERMITE SETIAR LOS VALORES PARA LA BARRA DE PROGRESO.
 
-songPlay.addEventListener('loadedmetada', () =>{
+songPlay.addEventListener('loadedmetadata', () =>{
     progressBar.max = playSong.duration
     progressBar.value = playSong.currentTime
 })
@@ -74,17 +74,32 @@ songPlay.addEventListener('loadedmetada', () =>{
 //FUNCIONES PARA ACTUALIZAR LA BARRA DE PROGRESO
 
 progressBar.addEventListener('timeupdate', () => {
-    progressBar.value = (songPlay.currentTime / songPlay.duration) *100 
+    progressBar.value = (songPlay.currentTime / songPlay.duration) * 100 
 })
 
 progressBar.addEventListener("input", () => {
-    songPlay.currentTime = (progressBar.value * songPlay.duration) /100;
+    songPlay.value = progressBar.value
 })
 
 progressBar.addEventListener ("change", () => {
     playSong()
 })
 
+btnRewind.addEventListener("click", () => {
+    songIndex = (songIndex - 1 + songs.length) % songs.length;
+    loadSong(songIndex)
+    playSong()
+})
+
+btnForward.addEventListener("click", () => {
+    songIndex = (songIndex + 1 + songs.length) % songs.length;
+    loadSong(songIndex)
+    playSong()
+})
+
+loadSong(songIndex);
+
 document.addEventListener("onload", ()=> {
     loadSong(songIndex)
 })
+
