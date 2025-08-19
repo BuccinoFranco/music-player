@@ -1,6 +1,6 @@
-const songTitle = document.querySelector('.play h1');
+const songTitle = document.querySelector('.player h1');
 const songArtist = document.querySelector('.player p');
-const songPlay = document.querySelector('#song-play');
+const songPlaying = document.querySelector('#song-play');
 const progressBar = document.querySelector('#progress-bar');
 const btnRewind = document.querySelector('.btn-rewind');
 const btnPlayPause = document.querySelector('.btn-play-pause');
@@ -41,65 +41,60 @@ let songIndex = 0
 const loadSong = () => {
     songTitle.textContent = songs[songIndex].title
     songArtist.textContent = songs[songIndex].artist
-    songPlay.src = songs[songIndex].src
-    songPlay.addEventListener('loadeddata', function(){})
+    songPlaying.src = songs[songIndex].src
 }
 
 
 btnPlayPause.addEventListener("click", () => {
-    if (songPlay.paused){
-        playSong()
+    if (songPlaying.paused){
+        playSong();
     } else {
-        pauseSong()
+        pauseSong();
     }
 })
 
 const playSong = () => {
-    songPlay.play()
+    songPlaying.play()
     btnPlayPause.innerHTML = '<i class="bi bi-pause-fill"></i>';
 }
 
 const pauseSong = () => {
-    songPlay.pause()
+    songPlaying.pause()
     btnPlayPause.innerHTML = '<i class="bi bi-play-fill"></i>';
 }  
 
 //ME PERMITE SETIAR LOS VALORES PARA LA BARRA DE PROGRESO.
 
-songPlay.addEventListener('loadedmetadata', () =>{
-    progressBar.max = playSong.duration
-    progressBar.value = playSong.currentTime
+songPlaying.addEventListener('loadedmetadata', () =>{
+    progressBar.max = songPlaying.duration
+    progressBar.value = songPlaying.currentTime
 })
 
 //FUNCIONES PARA ACTUALIZAR LA BARRA DE PROGRESO
 
-progressBar.addEventListener('timeupdate', () => {
-    progressBar.value = (songPlay.currentTime / songPlay.duration) * 100 
+songPlaying.addEventListener('timeupdate', () => {
+    if(!songPlaying.paused) {
+        progressBar.value = songPlaying.currentTime
+    }
 })
 
 progressBar.addEventListener("input", () => {
-    songPlay.value = progressBar.value
-})
-
-progressBar.addEventListener ("change", () => {
-    playSong()
-})
+    songPlaying.currentTime = progressBar.value;
+    });
 
 btnRewind.addEventListener("click", () => {
     songIndex = (songIndex - 1 + songs.length) % songs.length;
-    loadSong(songIndex)
-    playSong()
+    loadSong();
+    playSong();
 })
 
 btnForward.addEventListener("click", () => {
     songIndex = (songIndex + 1 + songs.length) % songs.length;
-    loadSong(songIndex)
-    playSong()
-})
-
-loadSong(songIndex);
+    loadSong();
+    playSong();
+    });
 
 document.addEventListener("onload", ()=> {
-    loadSong(songIndex)
+    loadSong()
 })
 
