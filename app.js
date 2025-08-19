@@ -11,11 +11,6 @@ LISTADO DE CANCIONES
 
 const songs = [
     {
-        title: 'Break Stuff',
-        artist: 'Limp Bizkit',
-        src: './music/Limp Bizkit - Break Stuff.mp3',
-    },
-    {
         title: 'Given Up',
         artist: 'Linkin park',
         src: './music/Linkin park - Given Up.mp3',
@@ -98,3 +93,4 @@ document.addEventListener("onload", ()=> {
     loadSong()
 })
 
+loadSong()
