@@ -5,6 +5,8 @@ const progressBar = document.querySelector('#progress-bar');
 const btnRewind = document.querySelector('.btn-rewind');
 const btnPlayPause = document.querySelector('.btn-play-pause');
 const btnForward = document.querySelector('.btn-forward');
+const volumen = document.querySelector('#volumen');
+
 /*
 LISTADO DE CANCIONES
 */ 
@@ -76,6 +78,11 @@ songPlaying.addEventListener('timeupdate', () => {
 progressBar.addEventListener("input", () => {
     songPlaying.currentTime = progressBar.value;
     });
+
+
+volumen.addEventListener("input", () => {
+    songPlaying.volume = volumen.value;
+})    
 
 btnRewind.addEventListener("click", () => {
     songIndex = (songIndex - 1 + songs.length) % songs.length;
