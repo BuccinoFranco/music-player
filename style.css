@@ -83,10 +83,6 @@ z-index: 2;
     box-shadow: 0 6px 10px rgba(255, 255, 255, 0.3);
 }
 
-#progress-volume-bar{
-    
-}
-
 .container-controls {
     display: flex;
     justify-content: space-between;

@@ -6,6 +6,7 @@ const btnRewind = document.querySelector('.btn-rewind');
 const btnPlayPause = document.querySelector('.btn-play-pause');
 const btnForward = document.querySelector('.btn-forward');
 const volumen = document.querySelector('#volumen');
+const tiempoDisplay = document.getElementById('tiempo');
 
 /*
 LISTADO DE CANCIONES
@@ -72,6 +73,9 @@ songPlaying.addEventListener('loadedmetadata', () =>{
 songPlaying.addEventListener('timeupdate', () => {
     if(!songPlaying.paused) {
         progressBar.value = songPlaying.currentTime
+        const minutos = Math.floor(songPlaying.currentTime / 60);
+        const segundos = Math.floor(songPlaying.currentTime % 60);
+        tiempoDisplay.textContent = `${minutos}:${segundos.toString().padStart(2, "0")}`;
     }
 })
 
@@ -82,7 +86,7 @@ progressBar.addEventListener("input", () => {
 
 volumen.addEventListener("input", () => {
     songPlaying.volume = volumen.value;
-})    
+});    
 
 btnRewind.addEventListener("click", () => {
     songIndex = (songIndex - 1 + songs.length) % songs.length;
